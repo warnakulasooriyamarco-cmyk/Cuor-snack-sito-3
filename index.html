@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cuor Snack</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #ff6b6b;
+  --secondary: #ffb347;
+  --accent: #6bcf8e;
+  --dark: #1e1e2f;
+  --glass: rgba(255,255,255,0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #ff6b6b, #ffb347, #6bcf8e, #4facfe);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+header.nav {
+  backdrop-filter: blur(20px);
+  background: var(--glass);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  transition: all 0.3s ease;
+}
+
+header.nav:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.logo-small {
+  height: 50px;
+  transition: transform 0.5s ease;
+}
+
+.logo-small:hover {
+  transform: rotate(10deg) scale(1.15);
+}
+
+.menu-btn {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease;
+}
+
+nav.open {
+  max-height: 500px;
+}
+
+nav a button {
+  background: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+nav a button:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+}
+
+main.container {
+  max-width: 1400px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+.news-section {
+  margin-bottom: 100px;
+}
+
+.news-wrapper {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 30px;
+  scroll-snap-type: x mandatory;
+}
+
+.news-slider {
+  display: flex;
+  gap: 50px;
+  min-width: max-content;
+}
+
+.news-card {
+  min-width: 630px;
+  height: 360px;
+  background: white;
+  border-radius: 40px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  transition: all 0.5s ease;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-card::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  background: linear-gradient(145deg, rgba(255,107,107,0.5), rgba(255,179,71,0.5));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.news-card:hover::before {
+  opacity: 1;
+}
+
+.news-card:hover {
+  transform: translateY(-20px) scale(1.05);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+
+article {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 60px 40px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  animation: fadeInUp 1s ease forwards;
+  margin-bottom: 60px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+article:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.article-content {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.text-block {
+  flex: 1;
+}
+
+.image-block {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-static {
+  width: 300px;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.logo-static:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+h1 {
+  font-size: 3rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  animation: textPop 1.5s ease forwards;
+}
+
+@keyframes textPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+h3 {
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.7;
+}
+
+footer.contacts {
+  margin-top: 60px;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 50px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  animation: fadeInUp 1.4s ease forwards;
+  font-size: 0.95rem;
+}
+
+footer.contacts h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: var(--secondary);
+}
+
+footer.contacts h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+footer.contacts p,
+footer.contacts address {
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .news-card { min-width: 350px; height: 250px; }
+  .article-content { flex-direction: column; text-align: center; }
+  main.container { margin: 40px auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+  <nav id="menu">
+  
+  <a href="index.html"><button>Home</button></a>
+  <a href="chi-siamo.html"><button>Chi siamo</button></a>
+  <a href="prodotti.html"><button>Prodotti</button></a>
+  <a href="contatti.html"><button>Contatti</button></a>
+</nav>
+  <img src="Cuorsnack.png" alt="Logo Cuor Snack" class="logo-small" />
+</header>
+
+<main class="container">
+  <section class="news-section">
+    <div class="news-wrapper">
+      <div class="news-slider">
+        <div class="news-card"></div>
+        <div class="news-card"></div>
+        <div class="news-card"></div>
+        <div class="news-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <article>
+    <div class="article-content">
+      <div class="text-block">
+        <h1></h1>
+        <h3></h3>
+        <p></p>
+        <p></p>
+        <p></p>
+      </div>
+      <div class="image-block">
+        <img src="cuorsnack.png" alt="Logo grande Cuor Snack" class="logo-static">
+      </div>
+    </div>
+  </article>
+
+  <!-- NUOVO ARTICOLO -->
+  <article>
+    <div class="article-content">
+      <div class="text-block">
+        <h1>Cuor Snack</h1>
+      </div>
+      <div class="image-block">
+        <img src="cuorsnack.png" alt="Logo grande Cuor Snack" class="logo-static">
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer class="contacts">
+  <h2>Contatti</h2>
+  <h3>Email</h3>
+  <p>info@cuorsnack.it</p>
+  <p>supporto@cuorsnack.it</p>
+  <p>vendite@cuorsnack.it</p>
+  <h3>Telefono</h3>
+  <p>+39 0123 456 789</p>
+  <p>+39 0987 654 321</p>
+  <h3>Sede</h3>
+  <address>Via rosa romeo, 43838 parma, Italia</address>
+</footer>
+
+<script>
+// Toggle menu mobile
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("open");
+}
+
+// Animazione scroll news cards
+const slider = document.querySelector('.news-wrapper');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+slider.addEventListener('mousedown', (e) => {
+  isDown = true;
+  slider.classList.add('active');
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
+});
+slider.addEventListener('mouseleave', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+slider.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+slider.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX) * 2; //scroll-fast
+  slider.scrollLeft = scrollLeft - walk;
+});
+</script>
+
+</body>
+</html>
